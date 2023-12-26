@@ -56,7 +56,7 @@ def sesion_iniciada(usuario_actual):
             break
 
 def iniciar_sesion():
-    if len(usuarios) < 0 :
+    if len(usuarios) > 0 :
         user = input("User -> ")
         password = input("Password -> ")
         #global usuario_actual
@@ -85,7 +85,7 @@ def registrar_usuario():
 
 def buscar_usuario():
 
-    if len(usuarios)<0:
+    if len(usuarios)>0:
         user = input("User a buscar -> ")
 
         for u in usuarios: 
