@@ -16,6 +16,8 @@ class Menu:
         print("<----- Menu Principal ----->\n")
         print("1. Iniciar sesion.")
         print("2. Registrar usuario.")
+        print("3. Buscar usuario.")
+        
         print("0. Salir")
         self._opc = int((input("Opc -> ")))
         

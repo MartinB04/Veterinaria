@@ -56,17 +56,21 @@ def sesion_iniciada(usuario_actual):
             break
 
 def iniciar_sesion():
-    user = input("User -> ")
-    password = input("Password -> ")
-    #global usuario_actual
+    if len(usuarios) < 0 :
+        user = input("User -> ")
+        password = input("Password -> ")
+        #global usuario_actual
     
-    for u in usuarios:
-        print(u.usuario) 
-        if u.usuario == user and u.password == password:
-            usuario_actual = u
-            sesion_iniciada(usuario_actual)
-        else:
-            print("No existe el usuario ingresado.")
+        for u in usuarios:
+            print(u.usuario) 
+            if u.usuario == user and u.password == password:
+                usuario_actual = u
+                sesion_iniciada(usuario_actual)
+            else:
+                print("No existe el usuario ingresado.")
+    
+    else:
+        print("Error, no hay usuarios registrados")
             
 def registrar_usuario():
     user = input("User -> ")
@@ -79,6 +83,19 @@ def registrar_usuario():
     usuarios.append(usuario)
     print(str(usuario))
 
+def buscar_usuario():
+
+    if len(usuarios)<0:
+        user = input("User a buscar -> ")
+
+        for u in usuarios: 
+            if u.usuario == user:
+                print(str(u))
+            else:
+                print("No existe el usuario ingresado.")
+    else:
+        print("Error, no hay usuarios registrados")
+        
 menu = Menu()
 opc = None
 usuarios = []
@@ -95,6 +112,8 @@ while(True):
             
         case 2: 
             registrar_usuario()
+            
+        case 3: buscar_usuario()
             
     if(opc == 0):
         break
