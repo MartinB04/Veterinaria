@@ -1,28 +1,39 @@
 import csv
+from Usuario import *
+import os
 
 class IOFile:
     
     ruta_usuarios = "usuarios.csv"
-    lector = None
+    directorio = "csv/"
     
     def __init__(self) -> None:
         pass
     
-    def escritura_usuarios(self, usuarios):
-        with open(self.ruta_usuarios, "w", newline="\n") as csvfile:
+    def escritura_usuarios(self, lista_usuarios):
+        with open(self.directorio + self.ruta_usuarios, "w", newline="\n") as csvfile:
             writer = csv.writer(csvfile, delimiter=",")
-            for u in usuarios:
-                writer.writerow(u.to_tuple())
+            for usuario in lista_usuarios:
+                writer.writerow(usuario.to_tuple()) #escribre la tupla que contiene los datos del usuario
     
     def lectura_usuarios(self):
-        with open(self.ruta_usuarios, newline="\n") as csvfile:
+        lista_usuarios = []
+        with open(self.directorio + self.ruta_usuarios, newline="\n") as csvfile:
             self.lector = csv.reader(csvfile, delimiter=",")
-            for nombre, empleo, email in self.lector:
-                print(nombre, empleo, email)
+            for usuarios, nombre, password, genero, telefono, email in self.lector:
+                lista_usuarios.append(Usuario(usuarios, nombre, password, genero, telefono, email))
+            return lista_usuarios
 
-    @property
-    def lector(self):
-        return self.lector
+    def modificar_usuario(self, lista_usuarios):
+        self.eliminar_archivo_csv()
+        self.escritura_usuarios(lista_usuarios)
+
+    def eliminar_archivo_csv(self):
+        try:
+            os.remove(self.directorio + self.ruta_usuarios)
+        except FileNotFoundError:
+            print(f"Error, {self.ruta_usuarios} no encontrado.")
+ 
     
 '''
 contactos = [

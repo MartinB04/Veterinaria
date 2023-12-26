@@ -2,9 +2,13 @@ from Usuario import *
 from Menu import *
 from IOFile import *
 
-def modificar_perfil(usuario_actual):
-    #global usuario_actual
-    
+menu = Menu()
+opc = None
+lista_usuarios = []
+usuario_actual = None
+iofile = IOFile()
+
+def modificar_perfil(usuario_actual):    
     while True:
         menu.menu_titulo()
         menu.menu_modificar_perfil()
@@ -36,6 +40,8 @@ def modificar_perfil(usuario_actual):
             case 6:
                 value = input("Email -> ")
                 usuario_actual.email = value
+                
+        iofile.modificar_usuario(lista_usuarios)
 
         if opc_aux == 0:
             break
@@ -57,12 +63,11 @@ def sesion_iniciada(usuario_actual):
             break
 
 def iniciar_sesion():
-    if len(usuarios) > 0 :
+    if len(lista_usuarios) > 0 :
         user = input("User -> ")
         password = input("Password -> ")
-        #global usuario_actual
-    
-        for u in usuarios:
+            
+        for u in lista_usuarios:
             print(u.usuario) 
             if u.usuario == user and u.password == password:
                 usuario_actual = u
@@ -71,7 +76,7 @@ def iniciar_sesion():
                 print("No existe el usuario ingresado.")
     
     else:
-        print("Error, no hay usuarios registrados")
+        print("Error, no hay lista_usuarios registrados")
             
 def registrar_usuario():
     user = input("User -> ")
@@ -81,28 +86,24 @@ def registrar_usuario():
     telefono = input("Telefono -> ")
     email = input("Email -> ")
     usuario = Usuario(user, nombre, password, genero, telefono, email)
-    usuarios.append(usuario)
+    lista_usuarios.append(usuario)
     print(str(usuario))
-    iofile.escritura_usuarios(usuarios)
+    iofile.escritura_lista_usuarios(lista_usuarios)
 
 def buscar_usuario():
-
-    if len(usuarios)>0:
+    if len(lista_usuarios)>0:
         user = input("User a buscar -> ")
 
-        for u in usuarios: 
+        for u in lista_usuarios: 
             if u.usuario == user:
                 print(str(u))
             else:
                 print("No existe el usuario ingresado.")
     else:
-        print("Error, no hay usuarios registrados")
+        print("Error, no hay lista_usuarios registrados")     
         
-menu = Menu()
-opc = None
-usuarios = []
-usuario_actual = None
-iofile = IOFile()
+
+lista_usuarios = iofile.lectura_usuarios()
 
 while(True):
     menu.menu_titulo()
@@ -110,11 +111,9 @@ while(True):
     opc = menu.opc
     
     match(opc):
-        case 1:
-            iniciar_sesion()
+        case 1: iniciar_sesion()
             
-        case 2: 
-            registrar_usuario()
+        case 2: registrar_usuario()
             
         case 3: buscar_usuario()
             
