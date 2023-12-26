@@ -1,5 +1,6 @@
 from Usuario import *
 from Menu import *
+from IOFile import *
 
 def modificar_perfil(usuario_actual):
     #global usuario_actual
@@ -82,6 +83,7 @@ def registrar_usuario():
     usuario = Usuario(user, nombre, password, genero, telefono, email)
     usuarios.append(usuario)
     print(str(usuario))
+    iofile.escritura_usuarios(usuarios)
 
 def buscar_usuario():
 
@@ -100,6 +102,7 @@ menu = Menu()
 opc = None
 usuarios = []
 usuario_actual = None
+iofile = IOFile()
 
 while(True):
     menu.menu_titulo()

@@ -3,17 +3,19 @@ class Usuario:
     _usuario = ""
     _password = ""
     _genero = ""
-    _email = ""
     _telefono = ""
+    _email = ""
+    
         
     
-    def __init__(self, usuario, nombre, password, genero, email, telefono) -> None:
+    def __init__(self, usuario, nombre, password, genero, telefono, email) -> None:
         self._usuario = usuario
         self._nombre = nombre
         self._password = password
         self._genero = genero
-        self._email = email
         self._telefono = telefono
+        self._email = email
+        
         
     
     @property
@@ -66,3 +68,6 @@ class Usuario:
     
     def __str__(self) -> str:
         return f"User -> {self._usuario}\nNombre ->{self._nombre}\nPassword -> {self._password}\nGenero -> {self._genero}\nTelefono -> {self._telefono}\nEmail -> {self._email}"
+    
+    def to_tuple(self):
+        return (self._usuario, self._nombre, self._password, self._genero, self._telefono, self._email)
