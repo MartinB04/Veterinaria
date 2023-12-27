@@ -1,14 +1,41 @@
 from Usuario import *
 from Menu import *
 from IOFile import *
+from Mascota import *
 
 menu = Menu()
 opc = None
 lista_usuarios = []
+lista_mascotas = []
 usuario_actual = None
 iofile = IOFile()
 
-def mascotas():
+def registrar_mascota(usuario_actual):
+    
+    print("<----- Registro de Mascotas ----->")
+    
+    nombre = input("Nombre -> ")
+    tipo_mascota = input("Tipo de mascota -> ")
+    raza = input("Raza -> ")
+    genero = input ("Genero -> ")
+    fecha_nacimiento = input("Fecha de nacimiento -> ")
+    peso = input("Peso -> ")
+    color = input("Color -> ")
+
+    mascota = Mascota(nombre, usuario_actual.usuario, tipo_mascota, raza, genero, fecha_nacimiento, peso, color)
+    print(str(mascota))
+    lista_mascotas.append(mascota)
+    
+def mis_mascotas():
+    if len(lista_mascotas ) > 0:
+        for i, mascota in enumerate(lista_mascotas, start=1):
+            print(f"\nMascota #{i}")
+            print(str(mascota))
+    
+    else:
+        print("Error, no hay mascotas registradas")
+
+def mascotas(usuario_actual):
     while True:
         menu.menu_titulo()
         menu.menu_mascotas()
@@ -16,9 +43,9 @@ def mascotas():
         
         match opc_aux:
             case 1:
-                pass
+                mis_mascotas()
             case 2:
-                pass
+                registrar_mascota(usuario_actual)
             case 3:
                 pass
             case 4:
@@ -76,7 +103,7 @@ def sesion_iniciada(usuario_actual):
             case 2:
                 pass
             case 3:
-                mascotas()
+                mascotas(usuario_actual)
             case 4: 
                 actualizar_perfil(usuario_actual)
                 

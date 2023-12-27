@@ -49,7 +49,7 @@ class Menu:
         print("3. Actualizar perfil de una mascota.")
         print("4. Eliminar perfil de una mascota")
         print("0. Regresar.")
-        self.opc = int(input("Opc -> "))
+        self._opc = int(input("Opc -> "))
 
         
     def menu_actualizar_perfil_mascota(self):

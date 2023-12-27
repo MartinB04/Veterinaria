@@ -8,17 +8,18 @@ class Mascota:
     _genero = None
     _color = None
     
-    def __init__(self, nombre, dueño, fecha_nacimiento, tipo_mascota, raza, peso, genero, color) -> None:
-        _nombre = nombre
-        _dueño = dueño
-        _fecha_nacimiento = fecha_nacimiento
-        _tipo_mascota = tipo_mascota
-        _raza = raza
-        _peso = peso
-        _genero = genero
-        _color = color
+    def __init__(self, nombre, dueño, tipo_mascota, raza, genero, fecha_nacimiento, peso, color) -> None:
+        self._nombre = nombre
+        self._dueño = dueño
+        self._fecha_nacimiento = fecha_nacimiento
+        self._tipo_mascota = tipo_mascota
+        self._raza = raza
+        self._peso = peso
+        self._genero = genero
+        self._color = color
         
-    
+    def __str__(self):
+        return f"Nombre -> {self._nombre}\nDueño -> {self._dueño}\nTipo de mascota -> {self._tipo_mascota}\nRaza -> {self._raza}\nGenero -> {self._genero}\nFecha de nacimiento -> {self._fecha_nacimiento}\nPeso -> {self._peso}\nColor -> {self._color}"
     
     @property
     def nombre(self):
