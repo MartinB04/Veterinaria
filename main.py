@@ -8,10 +8,29 @@ lista_usuarios = []
 usuario_actual = None
 iofile = IOFile()
 
-def modificar_perfil(usuario_actual):    
+def mascotas():
     while True:
         menu.menu_titulo()
-        menu.menu_modificar_perfil()
+        menu.menu_mascotas()
+        opc_aux = menu.opc
+        
+        match opc_aux:
+            case 1:
+                pass
+            case 2:
+                pass
+            case 3:
+                pass
+            case 4:
+                pass
+        
+        if opc_aux == 0:
+            break
+
+def actualizar_perfil(usuario_actual):    
+    while True:
+        menu.menu_titulo()
+        menu.menu_acutalizar_perfil_usuario()
         opc_aux = menu.opc
         value = None
         
@@ -57,8 +76,10 @@ def sesion_iniciada(usuario_actual):
             case 2:
                 pass
             case 3:
-                modificar_perfil(usuario_actual)
-            
+                mascotas()
+            case 4: 
+                actualizar_perfil(usuario_actual)
+                
         if opc_aux == 0:
             break
 
