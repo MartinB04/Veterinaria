@@ -13,13 +13,18 @@ class IOFile:
     def __init__(self) -> None:
         pass
     
-    def escritura_fichero(self, lista_registros, fichero):
+    def escritura_fichero_registro(self, nuevo_registro, fichero):
+        with open(self.directorio + fichero + self.extension, "a", newline="\n") as csvfile:
+            writer = csv.writer(csvfile, delimiter=",")
+            writer.writerow(nuevo_registro.to_tuple())
+    
+    def escritura_fichero_lista(self, lista_registros, fichero):
         with open(self.directorio  + fichero + self.extension, "w", newline="\n") as csvfile:
             writer = csv.writer(csvfile, delimiter=",")
             for registro in lista_registros:
                 writer.writerow(registro.to_tuple()) #escribre la tupla que contiene los datos del usuario
     
-    def lectura_fichero(self, fichero):
+    def lectura_fichero_lista(self, fichero):
         lista_registros = []
         with open(self.directorio  + fichero + self.extension, newline="\n") as csvfile:
             self.lector = csv.reader(csvfile, delimiter=",")
@@ -31,8 +36,6 @@ class IOFile:
                     lista_registros.append(Mascota(nombre, dueño, fecha_nacimiento, tipo_mascota, raza, peso, genero, color))
             return lista_registros
         
-        
-
     def modificar_registro(self, lista_registros, fichero):
         self.eliminar_fichero_csv(fichero)
         self.escritura_usuarios(lista_registros, fichero)

@@ -84,3 +84,7 @@ class Mascota:
     @color.setter
     def color(self, value):
         self._color = value
+        
+    def to_tuple(self):
+        return (self.nombre, self.dueño, self.tipo_mascota, self.raza, self.genero, self.fecha_nacimiento, self.peso, self.color)
+   
