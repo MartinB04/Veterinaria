@@ -25,7 +25,7 @@ class Menu:
         print(f"<----- Bienvenido {nombre} ----->\n")
         print("1. Comprar productos.")
         print("2. Registar una cita.")
-        print("3. Ver mis mascotas.")
+        print("3. Mis mascotas.")
         print("4. Modificar perfil.")
         print("0. Cerrar sesion.")
         self._opc = int((input("Opc -> ")))

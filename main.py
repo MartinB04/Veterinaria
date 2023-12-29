@@ -26,14 +26,25 @@ def registrar_mascota(usuario_actual):
     print(str(mascota))
     lista_mascotas.append(mascota)
     
-def mis_mascotas():
-    if len(lista_mascotas ) > 0:
+def mis_mascotas(usuario_actual):
+    if len(lista_mascotas ) > 0: 
+        pass
+    if cargar_mascotas_usuario(usuario_actual):
+        
         for i, mascota in enumerate(lista_mascotas, start=1):
-            print(f"\nMascota #{i}")
-            print(str(mascota))
+            if(mascota.dueño == usuario_actual.usuario):
+                print(f"\nMascota #{i}")
+                print(str(mascota))
     
     else:
-        print("Error, no hay mascotas registradas")
+        print("Error, no tienes mascotas registradas")
+        
+def cargar_mascotas_usuario(usuario_actual):
+    for m in lista_mascotas:
+        if(m.dueño == usuario_actual.usuario):
+            return True
+    else:
+        return False
 
 def mascotas(usuario_actual):
     while True:
@@ -43,7 +54,7 @@ def mascotas(usuario_actual):
         
         match opc_aux:
             case 1:
-                mis_mascotas()
+                mis_mascotas(usuario_actual)
             case 2:
                 registrar_mascota(usuario_actual)
             case 3:
