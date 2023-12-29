@@ -27,8 +27,7 @@ def registrar_mascota(usuario_actual):
     lista_mascotas.append(mascota)
     
 def mis_mascotas(usuario_actual):
-    if len(lista_mascotas ) > 0: 
-        pass
+
     if cargar_mascotas_usuario(usuario_actual):
         
         for i, mascota in enumerate(lista_mascotas, start=1):
@@ -98,7 +97,7 @@ def actualizar_perfil(usuario_actual):
                 value = input("Email -> ")
                 usuario_actual.email = value
                 
-        iofile.modificar_usuario(lista_usuarios)
+        iofile.modificar_usuario(lista_usuarios, "usuarios")
 
         if opc_aux == 0:
             break
@@ -147,7 +146,7 @@ def registrar_usuario():
     usuario = Usuario(user, nombre, password, genero, telefono, email)
     lista_usuarios.append(usuario)
     print(str(usuario))
-    iofile.escritura_lista_usuarios(lista_usuarios)
+    iofile.escritura_fichero(lista_usuarios, "usuarios")
 
 def buscar_usuario():
     if len(lista_usuarios)>0:
@@ -162,7 +161,7 @@ def buscar_usuario():
         print("Error, no hay lista_usuarios registrados")     
         
 
-lista_usuarios = iofile.lectura_usuarios()
+lista_usuarios = iofile.lectura_fichero("usuarios")
 
 while(True):
     menu.menu_titulo()

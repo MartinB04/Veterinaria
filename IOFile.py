@@ -1,38 +1,47 @@
 import csv
-from Usuario import *
 import os
+
+from Usuario import *
+from Mascota import *
 
 class IOFile:
     
+    extension = ".csv"
     ruta_usuarios = "usuarios.csv"
     directorio = "csv/"
     
     def __init__(self) -> None:
         pass
     
-    def escritura_usuarios(self, lista_usuarios):
-        with open(self.directorio + self.ruta_usuarios, "w", newline="\n") as csvfile:
+    def escritura_fichero(self, lista_registros, fichero):
+        with open(self.directorio  + fichero + self.extension, "w", newline="\n") as csvfile:
             writer = csv.writer(csvfile, delimiter=",")
-            for usuario in lista_usuarios:
-                writer.writerow(usuario.to_tuple()) #escribre la tupla que contiene los datos del usuario
+            for registro in lista_registros:
+                writer.writerow(registro.to_tuple()) #escribre la tupla que contiene los datos del usuario
     
-    def lectura_usuarios(self):
-        lista_usuarios = []
-        with open(self.directorio + self.ruta_usuarios, newline="\n") as csvfile:
+    def lectura_fichero(self, fichero):
+        lista_registros = []
+        with open(self.directorio  + fichero + self.extension, newline="\n") as csvfile:
             self.lector = csv.reader(csvfile, delimiter=",")
-            for usuarios, nombre, password, genero, telefono, email in self.lector:
-                lista_usuarios.append(Usuario(usuarios, nombre, password, genero, telefono, email))
-            return lista_usuarios
+            if(fichero == "usuarios"):
+                for usuario, nombre, password, genero, telefono, email in self.lector:
+                    lista_registros.append(Usuario(usuario, nombre, password, genero, telefono, email))
+            elif(fichero == "mascotas"):
+                for nombre, dueño, fecha_nacimiento, tipo_mascota, raza, peso, genero, color in self.lector:
+                    lista_registros.append(Mascota(nombre, dueño, fecha_nacimiento, tipo_mascota, raza, peso, genero, color))
+            return lista_registros
+        
+        
 
-    def modificar_usuario(self, lista_usuarios):
-        self.eliminar_archivo_csv()
-        self.escritura_usuarios(lista_usuarios)
+    def modificar_registro(self, lista_registros, fichero):
+        self.eliminar_fichero_csv(fichero)
+        self.escritura_usuarios(lista_registros, fichero)
 
-    def eliminar_archivo_csv(self):
+    def eliminar_fichero_csv(self, fichero):
         try:
-            os.remove(self.directorio + self.ruta_usuarios)
+            os.remove(self.directorio +fichero+ self.extension)
         except FileNotFoundError:
-            print(f"Error, {self.ruta_usuarios} no encontrado.")
+            print(f"Error, {fichero + self.extension} no encontrado.")
  
     
 '''
