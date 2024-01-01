@@ -25,11 +25,12 @@ class Menu:
         print(f"<----- Bienvenido {nombre} ----->\n")
         print("1. Comprar productos.")
         print("2. Registar una cita.")
-        print("3. Modificar perfil.")
+        print("3. Mis mascotas.")
+        print("4. Modificar perfil.")
         print("0. Cerrar sesion.")
         self._opc = int((input("Opc -> ")))
         
-    def menu_modificar_perfil(self):
+    def menu_acutalizar_perfil_usuario(self):
         print("<----- Modificar Perfil ----->\n")
         print("1. User.")
         print("2. Nombre.")
@@ -39,6 +40,31 @@ class Menu:
         print("6. Email.")
         print("0. Regresar.")
         self._opc = int(input("Opc -> "))
+        
+    def menu_mascotas(self):
+        print("<----- Menu Mascotas ----->\n")
+        
+        print("1. Ver mis mascotas.")
+        print("2. Agregar una nueva mascota.")
+        print("3. Actualizar perfil de una mascota.")
+        print("4. Eliminar perfil de una mascota")
+        print("0. Regresar.")
+        self._opc = int(input("Opc -> "))
+
+        
+    def menu_actualizar_perfil_mascota(self):
+        print("<----- Menu Modificar ----->\n")
+        
+        print("1. Nombre.")
+        print("2. Fecha de nacimiento.")
+        print("3. Tipo de mascota.")
+        print("4. Raza.")
+        print("5. Peso.")
+        print("6. Genero.")
+        print("7. Color.")
+        print("0. Regresar")
+        print("Opc -> ")
+        self.opc = int(input("Opc -> "))
         
     def registrar_cita(self):
         pass

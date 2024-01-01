@@ -1,17 +1,74 @@
 from Usuario import *
 from Menu import *
 from IOFile import *
+from Mascota import *
 
 menu = Menu()
 opc = None
 lista_usuarios = []
+lista_mascotas = []
 usuario_actual = None
 iofile = IOFile()
 
-def modificar_perfil(usuario_actual):    
+def registrar_mascota(usuario_actual):
+    
+    print("<----- Registro de Mascotas ----->")
+    
+    nombre = input("Nombre -> ")
+    tipo_mascota = input("Tipo de mascota -> ")
+    raza = input("Raza -> ")
+    genero = input ("Genero -> ")
+    fecha_nacimiento = input("Fecha de nacimiento -> ")
+    peso = input("Peso -> ")
+    color = input("Color -> ")
+
+    mascota = Mascota(nombre, usuario_actual.usuario, tipo_mascota, raza, genero, fecha_nacimiento, peso, color)
+    print(str(mascota))
+    lista_mascotas.append(mascota)
+    iofile.escritura_fichero_registro(mascota, "mascotas")
+    
+def mis_mascotas(usuario_actual):
+
+    if cargar_mascotas_usuario(usuario_actual):
+        
+        for i, mascota in enumerate(lista_mascotas, start=1):
+            if(mascota.dueño == usuario_actual.usuario):
+                print(f"\nMascota #{i}")
+                print(str(mascota))
+    
+    else:
+        print("Error, no tienes mascotas registradas")
+        
+def cargar_mascotas_usuario(usuario_actual):
+    for m in lista_mascotas:
+        if(m.dueño == usuario_actual.usuario):
+            return True
+    else:
+        return False
+
+def mascotas(usuario_actual):
     while True:
         menu.menu_titulo()
-        menu.menu_modificar_perfil()
+        menu.menu_mascotas()
+        opc_aux = menu.opc
+        
+        match opc_aux:
+            case 1:
+                mis_mascotas(usuario_actual)
+            case 2:
+                registrar_mascota(usuario_actual)
+            case 3:
+                pass
+            case 4:
+                pass
+        
+        if opc_aux == 0:
+            break
+
+def actualizar_perfil(usuario_actual):    
+    while True:
+        menu.menu_titulo()
+        menu.menu_acutalizar_perfil_usuario()
         opc_aux = menu.opc
         value = None
         
@@ -41,7 +98,7 @@ def modificar_perfil(usuario_actual):
                 value = input("Email -> ")
                 usuario_actual.email = value
                 
-        iofile.modificar_usuario(lista_usuarios)
+        iofile.modificar_registro(lista_usuarios, "usuarios")
 
         if opc_aux == 0:
             break
@@ -57,8 +114,10 @@ def sesion_iniciada(usuario_actual):
             case 2:
                 pass
             case 3:
-                modificar_perfil(usuario_actual)
-            
+                mascotas(usuario_actual)
+            case 4: 
+                actualizar_perfil(usuario_actual)
+                
         if opc_aux == 0:
             break
 
@@ -88,7 +147,7 @@ def registrar_usuario():
     usuario = Usuario(user, nombre, password, genero, telefono, email)
     lista_usuarios.append(usuario)
     print(str(usuario))
-    iofile.escritura_registro(usuario)
+    iofile.escritura_fichero_registro(usuario, "usuarios")
 
 def buscar_usuario():
     if len(lista_usuarios)>0:
@@ -103,7 +162,7 @@ def buscar_usuario():
         print("Error, no hay lista_usuarios registrados")     
         
 
-lista_usuarios = iofile.lectura_usuarios()
+lista_usuarios = iofile.lectura_fichero_lista("usuarios")
 
 while(True):
     menu.menu_titulo()
