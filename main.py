@@ -88,7 +88,7 @@ def registrar_usuario():
     usuario = Usuario(user, nombre, password, genero, telefono, email)
     lista_usuarios.append(usuario)
     print(str(usuario))
-    iofile.escritura_lista_usuarios(lista_usuarios)
+    iofile.escritura_registro(usuario)
 
 def buscar_usuario():
     if len(lista_usuarios)>0:

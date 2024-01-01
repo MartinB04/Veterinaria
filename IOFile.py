@@ -10,6 +10,11 @@ class IOFile:
     def __init__(self) -> None:
         pass
     
+    def escritura_registro(self, registro):
+        with open(self.directorio + self.ruta_usuarios, "w", newline="\n") as csvfile:
+            writer = csv.writer(csvfile, delimiter=",") 
+            writer.writerow(registro.to_tuple()) 
+    
     def escritura_usuarios(self, lista_usuarios):
         with open(self.directorio + self.ruta_usuarios, "w", newline="\n") as csvfile:
             writer = csv.writer(csvfile, delimiter=",")
