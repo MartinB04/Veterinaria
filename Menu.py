@@ -64,7 +64,7 @@ class Menu:
         print("7. Color.")
         print("0. Regresar")
         print("Opc -> ")
-        self.opc = int(input("Opc -> "))
+        self._opc = int(input("Opc -> "))
         
     def registrar_cita(self):
         pass

@@ -1,12 +1,10 @@
 class Usuario:
-    _nombre = ""
-    _usuario = ""
-    _password = ""
-    _genero = ""
-    _telefono = ""
-    _email = ""
-    
-        
+    _nombre = None
+    _usuario = None
+    _password = None
+    _genero = None
+    _telefono = None
+    _email = None
     
     def __init__(self, usuario, nombre, password, genero, telefono, email) -> None:
         self._usuario = usuario
@@ -15,8 +13,6 @@ class Usuario:
         self._genero = genero
         self._telefono = telefono
         self._email = email
-        
-        
     
     @property
     def nombre(self):

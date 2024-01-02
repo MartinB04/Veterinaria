@@ -6,27 +6,27 @@ from Mascota import *
 
 class IOFile:
     
-    extension = ".csv"
-    ruta_usuarios = "usuarios.csv"
-    directorio = "csv/"
+    _extension = ".csv"
+    #ruta_usuarios = "usuarios.csv"
+    _directorio = "csv/"
     
     def __init__(self) -> None:
         pass
     
     def escritura_fichero_registro(self, nuevo_registro, fichero):
-        with open(self.directorio + fichero + self.extension, "a", newline="\n") as csvfile:
+        with open(self._directorio + fichero + self._extension, "a", newline="\n") as csvfile:
             writer = csv.writer(csvfile, delimiter=",")
             writer.writerow(nuevo_registro.to_tuple())
     
     def escritura_fichero_lista(self, lista_registros, fichero):
-        with open(self.directorio  + fichero + self.extension, "w", newline="\n") as csvfile:
+        with open(self._directorio  + fichero + self._extension, "w", newline="\n") as csvfile:
             writer = csv.writer(csvfile, delimiter=",")
             for registro in lista_registros:
                 writer.writerow(registro.to_tuple()) #escribre la tupla que contiene los datos del usuario
     
     def lectura_fichero_lista(self, fichero):
         lista_registros = []
-        with open(self.directorio  + fichero + self.extension, newline="\n") as csvfile:
+        with open(self._directorio  + fichero + self._extension, newline="\n") as csvfile:
             self.lector = csv.reader(csvfile, delimiter=",")
             if(fichero == "usuarios"):
                 for usuario, nombre, password, genero, telefono, email in self.lector:

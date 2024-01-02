@@ -6,7 +6,7 @@ class Mascota:
     _raza = None
     _peso = None
     _genero = None
-    _color = None
+    _olor = None
     
     def __init__(self, nombre, dueño, tipo_mascota, raza, genero, fecha_nacimiento, peso, color) -> None:
         self._nombre = nombre
@@ -48,7 +48,7 @@ class Mascota:
     @property
     def tipo_mascota(self):
         return self._tipo_mascota
-    
+
     @tipo_mascota.setter
     def tipo_mascota(self, value):
         self._tipo_mascota = value
@@ -64,7 +64,7 @@ class Mascota:
     @property
     def peso(self):
         return self._peso
-    
+
     @peso.setter
     def peso(self, value):
         self._peso = value
@@ -86,5 +86,5 @@ class Mascota:
         self._color = value
         
     def to_tuple(self):
-        return (self.nombre, self.dueño, self.tipo_mascota, self.raza, self.genero, self.fecha_nacimiento, self.peso, self.color)
+        return (self._nombre, self._dueño, self._tipo_mascota, self._raza, self._genero, self._fecha_nacimiento, self._peso, self._color)
    
