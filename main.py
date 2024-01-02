@@ -13,6 +13,41 @@ try:
     lista_usuarios = iofile.lectura_fichero_lista("usuarios")
 except: pass
 
+def actualizar_perfil_mascota(usuario_actual):
+    nombre = input("Mascota a modificar -> ")
+    mascota_modificada = None
+    opc_aux = None
+    for m in lista_mascotas:
+        if m.nombre == nombre:
+            mascota_modificada = m
+    
+    if mascota_modificada:
+        while True:
+            try:
+                menu.menu_titulo
+                menu.menu_actualizar_perfil_mascota()
+                opc_aux = menu.opc
+                
+                match opc_aux:
+                    case 1: mascota_modificada.nombre = input("Nombre -> ")
+                    case 2: mascota_modificada.tipo_mascota = input("Tipo de mascota -> ")
+                    case 3: mascota_modificada.raza = input("Raza -> ")
+                    case 4: mascota_modificada.peso = input("Peso -> ")
+                    case 5: mascota_modificada.genero = input("Genero -> ")
+                    case 6: mascota_modificada.color = input("Color -> ")
+                    case 7: mascota_modificada.fecha_nacimiento = input("Fecha de nacimiento (dd/mm/aaaa) -> ")
+                    case 0: 
+                        print("Regresando.")
+                        break
+                    case _: print("Error, opcion fuera de rango.")
+                    
+                iofile.modificar_registro(lista_mascotas, "mascotas")
+                        
+            except: print("Error, opcon invalida.")
+            
+    else: print("Error, mascota no registrada.")   
+    
+
 def registrar_mascota(usuario_actual):
     
     print("<----- Registro de Mascotas ----->")
@@ -56,7 +91,7 @@ def mascotas(usuario_actual):
             match opc_aux:
                 case 1: mis_mascotas(usuario_actual)
                 case 2: registrar_mascota(usuario_actual)
-                case 3: pass
+                case 3: actualizar_perfil_mascota(usuario_actual)
                 case 4: pass
                 case 0:
                     print("Error, opcion fuera de rango.")
@@ -67,7 +102,8 @@ def mascotas(usuario_actual):
             #break
         except: print("Error, opcion invalida.")
 
-def actualizar_perfil(usuario_actual):    
+def actualizar_perfil(usuario_actual):
+    
     while True:
         try:
             menu.menu_titulo()
