@@ -13,13 +13,20 @@ try:
     lista_usuarios = iofile.lectura_fichero_lista("usuarios")
 except: pass
 
-def actualizar_perfil_mascota(usuario_actual):
+def buscar_mascota(usuario_actual):
     nombre = input("Mascota a modificar -> ")
     mascota_modificada = None
-    opc_aux = None
+    
     for m in lista_mascotas:
-        if m.nombre == nombre:
+        if usuario_actual.usuario == m.dueño and m.nombre == nombre:
             mascota_modificada = m
+    
+    return mascota_modificada
+
+def actualizar_perfil_mascota(usuario_actual):
+    
+    mascota_modificada = buscar_mascota(usuario_actual)
+    opc_aux = None
     
     if mascota_modificada:
         while True:
@@ -43,7 +50,7 @@ def actualizar_perfil_mascota(usuario_actual):
                     
                 iofile.modificar_registro(lista_mascotas, "mascotas")
                         
-            except: print("Error, opcon invalida.")
+            except: print("Error, opcion invalida.")
             
     else: print("Error, mascota no registrada.")   
     
