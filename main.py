@@ -9,23 +9,29 @@ lista_mascotas = []
 lista_usuarios = []
 usuario_actual = None
 iofile = IOFile()
+
 try:
     lista_usuarios = iofile.lectura_fichero_lista("usuarios")
 except: pass
 
-def buscar_mascota(usuario_actual):
-    nombre = input("Mascota a modificar -> ")
+def buscar_mascotas():
+    for mascota in lista_mascotas:
+        if(mascota.dueño == usuario_actual.usuario):
+            return True
+        else:
+            return False
+
+def buscar_mascota(usuario_actual, nombre_mascota):
     mascota_modificada = None
-    
-    for m in lista_mascotas:
-        if usuario_actual.usuario == m.dueño and m.nombre == nombre:
-            mascota_modificada = m
-    
-    return mascota_modificada
+    for mascota in lista_mascotas:
+        if usuario_actual.usuario == mascota.dueño and mascota.nombre == nombre_mascota:
+            mascota_modificada = mascota
+        return mascota_modificada
+
 
 def actualizar_perfil_mascota(usuario_actual):
-    
-    mascota_modificada = buscar_mascota(usuario_actual)
+    nombre_mascota = input("Mascota a modificar -> ")
+    mascota_modificada = buscar_mascota(usuario_actual, nombre_mascota)
     opc_aux = None
     
     if mascota_modificada:
@@ -68,12 +74,11 @@ def registrar_mascota(usuario_actual):
     color = input("Color -> ")
 
     mascota = Mascota(nombre, usuario_actual.usuario, tipo_mascota, raza, genero, fecha_nacimiento, peso, color)
-    #print(str(mascota))
     lista_mascotas.append(mascota)
     iofile.escritura_fichero_registro(mascota, "mascotas")
     
 def mis_mascotas(usuario_actual):
-    if cargar_mascotas_usuario(usuario_actual): 
+    if buscar_mascotas(usuario_actual): 
         for i, mascota in enumerate(lista_mascotas, start=1):
             if(mascota.dueño == usuario_actual.usuario):
                 print(f"\nMascota #{i}")
@@ -81,12 +86,6 @@ def mis_mascotas(usuario_actual):
     else:
         print("Error, no tienes mascotas registradas")
         
-def cargar_mascotas_usuario(usuario_actual):
-    for m in lista_mascotas:
-        if(m.dueño == usuario_actual.usuario):
-            return True
-    else:
-        return False
 
 def mascotas(usuario_actual):
     while True:
@@ -105,8 +104,6 @@ def mascotas(usuario_actual):
                     break
                 case _: print("Error, opcion fuera de rango.")
                 
-        #if opc_aux == 0:
-            #break
         except: print("Error, opcion invalida.")
 
 def actualizar_perfil(usuario_actual):
@@ -131,8 +128,6 @@ def actualizar_perfil(usuario_actual):
                 
             iofile.modificar_registro(lista_usuarios, "usuarios")
 
-            #if opc_aux == 0:
-                #break
         
         except: print("Error, opcion invalida.")
 
@@ -152,8 +147,6 @@ def sesion_iniciada(usuario_actual):
                     break
                 case _: print("Error, opcion fuera de rango.")
                 
-            #if opc_aux == 0:
-                #break
         except: print("Error, opcion invalida.")
 
 def iniciar_sesion():
@@ -162,7 +155,6 @@ def iniciar_sesion():
         password = input("Password -> ")
             
         for u in lista_usuarios:
-            print(u.usuario) 
             if u.usuario == user and u.password == password:
                 usuario_actual = u
                 sesion_iniciada(usuario_actual)
@@ -179,9 +171,9 @@ def registrar_usuario():
     genero = input("Genero -> ")
     telefono = input("Telefono -> ")
     email = input("Email -> ")
+    
     usuario = Usuario(user, nombre, password, genero, telefono, email)
     lista_usuarios.append(usuario)
-    #print(str(usuario))
     iofile.escritura_fichero_registro(usuario, "usuarios")
 
 def buscar_usuario():
