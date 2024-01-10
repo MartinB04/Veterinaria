@@ -1,7 +1,7 @@
 import os
 
 class Menu:
-    _opc = None
+    _opcion_menu = None
 
     def __init__(self) -> None:
         pass
@@ -19,7 +19,7 @@ class Menu:
         print("3. Buscar usuario.")
         
         print("0. Salir")
-        self._opc = int((input("Opc -> ")))
+        self._opcion_menu = input("Opc -> ")
         
     def menu_sesion_iniciada(self, nombre):
         print(f"<----- Bienvenido {nombre} ----->\n")
@@ -28,7 +28,7 @@ class Menu:
         print("3. Mis mascotas.")
         print("4. Modificar perfil.")
         print("0. Cerrar sesion.")
-        self._opc = int((input("Opc -> ")))
+        self._opcion_menu = input("Opc -> ")
         
     def menu_acutalizar_perfil_usuario(self):
         print("<----- Modificar Perfil ----->\n")
@@ -39,7 +39,7 @@ class Menu:
         print("5. Telefono.")
         print("6. Email.")
         print("0. Regresar.")
-        self._opc = int(input("Opc -> "))
+        self._opcion_menu = input("Opc -> ")
         
     def menu_mascotas(self):
         print("<----- Menu Mascotas ----->\n")
@@ -49,7 +49,7 @@ class Menu:
         print("3. Actualizar perfil de una mascota.")
         print("4. Eliminar perfil de una mascota")
         print("0. Regresar.")
-        self._opc = int(input("Opc -> "))
+        self._opcion_menu = input("Opc -> ")
 
         
     def menu_actualizar_perfil_mascota(self):
@@ -64,12 +64,12 @@ class Menu:
         print("7. Fecha de nacimiento.")
         print("0. Regresar")
         print("Opc -> ")
-        self._opc = int(input("Opc -> "))
+        self._opcion_menu = input("Opc -> ")
         
     def registrar_cita(self):
         pass
         
     @property
-    def opc(self):
-        return self._opc
+    def opcion_menu(self):
+        return self._opcion_menu
         

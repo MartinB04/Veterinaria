@@ -4,15 +4,14 @@ from IOFile import *
 from Mascota import *
 
 menu = Menu()
-opc = None
+#opcion = None
 lista_mascotas = []
-lista_usuarios = []
+#lista_usuarios = []
 usuario_actual = None
 iofile = IOFile()
 
-try:
-    lista_usuarios = iofile.lectura_fichero_lista("usuarios")
-except: pass
+try: lista_usuarios = iofile.lectura_fichero_lista("usuarios")
+except FileNotFoundError: lista_usuarios = []
 
 def buscar_mascotas():
     for mascota in lista_mascotas:
@@ -32,32 +31,30 @@ def buscar_mascota(usuario_actual, nombre_mascota):
 def actualizar_perfil_mascota(usuario_actual):
     nombre_mascota = input("Mascota a modificar -> ")
     mascota_modificada = buscar_mascota(usuario_actual, nombre_mascota)
-    opc_aux = None
+    opcion = None
     
     if mascota_modificada:
         while True:
-            try:
-                menu.menu_titulo
-                menu.menu_actualizar_perfil_mascota()
-                opc_aux = menu.opc
-                
-                match opc_aux:
-                    case 1: mascota_modificada.nombre = input("Nombre -> ")
-                    case 2: mascota_modificada.tipo_mascota = input("Tipo de mascota -> ")
-                    case 3: mascota_modificada.raza = input("Raza -> ")
-                    case 4: mascota_modificada.peso = input("Peso -> ")
-                    case 5: mascota_modificada.genero = input("Genero -> ")
-                    case 6: mascota_modificada.color = input("Color -> ")
-                    case 7: mascota_modificada.fecha_nacimiento = input("Fecha de nacimiento (dd/mm/aaaa) -> ")
-                    case 0: 
-                        print("Regresando.")
-                        break
-                    case _: print("Error, opcion fuera de rango.")
-                    
-                iofile.modificar_registro(lista_mascotas, "mascotas")
-                        
-            except: print("Error, opcion invalida.")
+            menu.menu_titulo
+            menu.menu_actualizar_perfil_mascota()
             
+            try: opcion = menu.opcionion_menu
+            except Exception as e: print(f"Error, {e}.")
+            
+            if opcion == 1: mascota_modificada.nombre = input("Nombre -> ")
+            elif opcion == 2: mascota_modificada.tipo_mascota = input("Tipo de mascota -> ")
+            elif opcion == 3: mascota_modificada.raza = input("Raza -> ")
+            elif opcion == 4: mascota_modificada.peso = input("Peso -> ")
+            elif opcion == 5: mascota_modificada.genero = input("Genero -> ")
+            elif opcion == 6: mascota_modificada.color = input("Color -> ")
+            elif opcion == 7: mascota_modificada.fecha_nacimiento = input("Fecha de nacimiento (dd/mm/aaaa) -> ")
+            elif opcion == 0:
+                print("Regresando.")
+                break
+            else: print("Error, opcionion fuera de rango.")
+                    
+            iofile.modificar_registro(lista_mascotas, "mascotas")
+                          
     else: print("Error, mascota no registrada.")   
     
 
@@ -89,65 +86,64 @@ def mis_mascotas(usuario_actual):
 
 def mascotas(usuario_actual):
     while True:
-        try:
-            menu.menu_titulo()
-            menu.menu_mascotas()
-            opc_aux = menu.opc
+        menu.menu_titulo()
+        menu.menu_mascotas()
+        try: opcion = menu.opcionion_menu
+        except Exception as e: print(f"Error, {e}.")
         
-            match opc_aux:
-                case 1: mis_mascotas(usuario_actual)
-                case 2: registrar_mascota(usuario_actual)
-                case 3: actualizar_perfil_mascota(usuario_actual)
-                case 4: pass
-                case 0:
-                    print("Error, opcion fuera de rango.")
-                    break
-                case _: print("Error, opcion fuera de rango.")
-                
-        except: print("Error, opcion invalida.")
-
+        if opcion == 1: mis_mascotas(usuario_actual)
+        elif opcion == 2: registrar_mascota(usuario_actual)
+        elif opcion == 3: actualizar_perfil_mascota(usuario_actual)
+        elif opcion == 4: pass
+        elif opcion == 0:
+            print("Error, opcionion fuera de rango.")
+            break
+        else: print("Error, opcion invalida.")
+            
+            
 def actualizar_perfil(usuario_actual):
     
     while True:
-        try:
-            menu.menu_titulo()
-            menu.menu_acutalizar_perfil_usuario()
-            opc_aux = menu.opc
         
-            match opc_aux:
-                case 1: usuario_actual.usuario = input("User -> ")
-                case 2: usuario_actual.nombre = input("Nombre -> ")
-                case 3: usuario_actual.password = input("Password -> ")
-                case 4: usuario_actual.genero = input("Genero -> ")
-                case 5: usuario_actual.telefono = input("Telefono -> ")
-                case 6: usuario_actual.email = input("Email -> ")
-                case 0: 
-                    print("Regresando.")
-                    break   
-                case _: print("Error, opcion fuera de rango.")
+        menu.menu_titulo()
+        menu.menu_acutalizar_perfil_usuario()
+        try: opcion = int(menu.opcionion_menu)
+        except Exception as e: print(f"Error, {e}.")
+        
+        if opcion == 1: usuario_actual.usuario = input("User -> ")
+        elif opcion == 2: usuario_actual.nombre = input("Nombre -> ")
+        elif opcion == 3: usuario_actual.password = input("Password -> ")
+        elif opcion == 4: usuario_actual.genero = input("Genero -> ")
+        elif opcion == 5: usuario_actual.telefono = input("Telefono -> ")
+        elif opcion == 6: usuario_actual.email = input("Email -> ")
+        elif opcion == 0:
+            print("Regresando.")
+            break
+        else: print("Opcionopcionion invalida.")
                 
-            iofile.modificar_registro(lista_usuarios, "usuarios")
+        iofile.modificar_registro(lista_usuarios, "usuarios")
 
         
-        except: print("Error, opcion invalida.")
+        
 
 def sesion_iniciada(usuario_actual):
     while True:
-        try:
-            menu.menu_titulo()
-            menu.menu_sesion_iniciada(usuario_actual.nombre)
-            opc_aux = menu.opc
-            match opc_aux:
-                case 1: pass
-                case 2: pass
-                case 3: mascotas(usuario_actual)
-                case 4: actualizar_perfil(usuario_actual)
-                case 0: 
-                    print("Cerrando sesion.")
-                    break
-                case _: print("Error, opcion fuera de rango.")
+        menu.menu_titulo()
+        menu.menu_sesion_iniciada(usuario_actual.nombre)
+        
+        try: opcion = int(menu.opcionion_menu)
+        except Exception as e: print(f"Error, {e}.")
+        
+        if opcion == 1: pass
+        elif opcion ==2 : pass
+        elif opcion == 3: mascotas(usuario_actual)
+        elif opcion ==4 : actualizar_perfil(usuario_actual)
+        elif opcion == 0:
+            print("Regresando.")
+            break
+        else: print("Error, opcionion invalida")
                 
-        except: print("Error, opcion invalida.")
+        
 
 def iniciar_sesion():
     if len(lista_usuarios) > 0 :
@@ -189,19 +185,16 @@ def buscar_usuario():
         print("Error, lista de usuario vacia")     
         
 while(True):
-    try:
-        menu.menu_titulo()
-        menu.menu_principal()
-        opc = menu.opc
+    menu.menu_titulo()
+    menu.menu_principal()
     
-        match(opc):
-            case 1: iniciar_sesion()
-            case 2: registrar_usuario()
-            case 3: buscar_usuario()
-            case 0: 
-                print("Saliendo del programa.")
-                break
-            case _: print("Error, opcion fuera de rango.")
-                    
-    except:
-        print("Error, opcion invalida.")
+    try: opcion = int(menu.opcionion_menu)
+    except Exception as e: print(f"Error, {e}.")
+    
+    if opcion == 1: iniciar_sesion()
+    elif opcion == 2: registrar_usuario()
+    elif opcion == 3 : buscar_usuario()
+    elif opcion == 0 : 
+        print("Saliendo.")
+        break
+    else: print("Opcionopcionion invalida.")
