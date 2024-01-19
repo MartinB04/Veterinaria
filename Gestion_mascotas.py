@@ -31,6 +31,20 @@ class Gestion_mascotas:
                 mascota_modificada = mascota
             return mascota_modificada
     '''
+    
+    def eliminar_mascota(self, ):
+        if not self.buscar_mascotas():
+            print("Error, no tienes mascotas registradas.")
+        else:
+            nombre_mascota = input("Mascota a eliminar -> ")
+            if not self.buscar_mascotas(nombre_mascota):
+                print("Error, mascota no registrada.")
+            else:
+                for mascota in self.lista_mascotas:
+                    if(mascota.nombre == nombre_mascota):
+                        self.lista_mascotas.remove(mascota)
+                        iofile.escritura_fichero_lista(self.lista_mascotas, "mascotas")
+        
             
     def buscar_mascotas(self, *args):
         if(len(args) == 1):
@@ -116,7 +130,7 @@ class Gestion_mascotas:
             if opcion == 1: self.mis_mascotas()
             elif opcion == 2: self.registrar_mascota()
             elif opcion == 3: self.actualizar_perfil_mascota()
-            elif opcion == 4: pass
+            elif opcion == 4: self.eliminar_mascota()
             elif opcion == 0:
                 print("Error, opcionion fuera de rango.")
                 break
