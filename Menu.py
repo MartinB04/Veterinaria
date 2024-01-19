@@ -63,7 +63,6 @@ class Menu:
         print("6. Color.")
         print("7. Fecha de nacimiento.")
         print("0. Regresar")
-        print("Opc -> ")
         self._opcion_menu = input("Opc -> ")
         
     def registrar_cita(self):

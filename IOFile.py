@@ -38,13 +38,13 @@ class IOFile:
         
     def modificar_registro(self, lista_registros, fichero):
         self.eliminar_fichero_csv(fichero)
-        self.escritura_usuarios(lista_registros, fichero)
+        self.escritura_fichero_lista(lista_registros, fichero)
 
     def eliminar_fichero_csv(self, fichero):
         try:
-            os.remove(self.directorio +fichero+ self.extension)
+            os.remove(self._directorio +fichero+ self._extension)
         except FileNotFoundError:
-            print(f"Error, {fichero + self.extension} no encontrado.")
+            print(f"Error, {fichero + self._extension} no encontrado.")
  
     
 '''
